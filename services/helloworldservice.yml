@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: helloworld-loadbalancer
+spec:
+  type: LoadBalancer
+  selector:
+    app: helloapp
+  ports:
+    - port: 8085
+      targetPort: 8090
+      name: tcphello

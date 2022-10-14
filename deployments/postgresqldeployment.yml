@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-postgresql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      database: postgresql
+      service: commentservice
+  template:
+    metadata:
+      name: pod-postgresql
+      labels:
+        database: postgresql
+        service: commentservice
+    spec:
+      containers:
+        - name: postgrecontainer
+          image: postgres:latest
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: commentapp-secret
+                  key: db_password

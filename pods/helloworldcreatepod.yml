@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: helloworld
+  labels:
+    app: helloworld-dev
+spec:
+  containers:
+    - name: helloworldapp
+      image: musty1406/helloworldapp:v001
+      ports:
+        - containerPort: 9090
+      env:
+        - name: SERVERPORT
+          value: "9090"

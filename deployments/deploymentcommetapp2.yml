@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: commentapp-deployment2
+  labels:
+    type: deploy-commentapp2
+spec:
+  selector:
+    matchLabels:
+      app: comment-app
+  template:
+    metadata:
+      labels:
+        app: comment-app
+    spec:
+      containers:
+        - name: comment-container2
+          image: musty1406/commentapp:v004
+          ports:
+            - containerPort: 9090
+          env:
+            - name: DBURL
+              valueFrom:
+                secretKeyRef:
+                  name: commentapp-secret2
+                  key: db-url
+            - name: DBNAME
+              valueFrom:
+                secretKeyRef:
+                  name: commentapp-secret2
+                  key: db_name
+            - name: DBPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: commentapp-secret2
+                  key: db_password
+            - name: SERVERPORT
+              valueFrom:
+                secretKeyRef:
+                  name: commentapp-secret2
+                  key: server_port
